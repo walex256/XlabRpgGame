@@ -2,39 +2,60 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 
-
-[RequireComponent(typeof(NavMeshAgent))]
-public class PlayerMovement : MonoBehaviour
+namespace Players
 {
-    [SerializeField] private TargetMarker m_targerMarker;
-    [SerializeField] private NavMeshAgent m_agent;
+    [RequireComponent(typeof(NavMeshAgent))]
+    public class PlayerMovement : MonoBehaviour
+    {        
+        public event Action Stopped;
+       
+        public event Action<Vector3> DestinationChanged;
 
-    private float m_speed;
+        [SerializeField] private NavMeshAgent m_agent;
 
+        private float m_speed;
+        private bool m_hasDestination;
 
-    public void OnValidate()
-    {
-        if(!m_agent)
+        private void OnValidate()
         {
-            m_agent = GetComponent<NavMeshAgent>();
+            if (!m_agent)
+            {
+                m_agent = GetComponent<NavMeshAgent>();
+            }
+        }
+
+        private void Awake() =>
+            Initialize(m_speed);
+
+        private void Update()
+        {
+            if (!m_hasDestination || m_agent.pathPending)
+            {
+                return;
+            }
+
+            if (m_agent.remainingDistance <= m_agent.stoppingDistance)
+            {
+                if (!m_agent.hasPath || m_agent.velocity.sqrMagnitude <= 0.001f)
+                {                   
+                    m_agent.isStopped = false;
+                    
+                    Stopped?.Invoke();
+                }
+            }
+        }
+
+        public void Initialize(float speed)
+        {
+            m_speed = speed;
+            m_agent.speed = speed;
+        }
+
+        public void SetDestination(Vector3 navMeshPoint)
+        {
+            m_agent.SetDestination(navMeshPoint);
+            m_hasDestination = true;            
+            DestinationChanged?.Invoke(navMeshPoint);
         }
     }
-
-    private void Awake()
-    {
-        Initialize(m_speed);
-    }
-
-    public void Initialize(float speed)
-    {
-        m_speed = speed;
-        m_agent.speed = speed;
-    }
-
-    public void SetDestination(Vector3 navMeshpoint)
-    {
-        m_targerMarker.Show(navMeshpoint);
-        m_agent.SetDestination(navMeshpoint);
-    }
-
 }
