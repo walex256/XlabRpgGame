@@ -50,4 +50,14 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+    public void SetupCursor()
+    {
+        var texture = m_config.Cursor;
+
+        if (texture)
+        {
+            var hotspot = new Vector2(texture.width /2f, texture.height / 2f);
+            Cursor.SetCursor(texture, hotspot, CursorMode.Auto);
+        }
+    }
 }

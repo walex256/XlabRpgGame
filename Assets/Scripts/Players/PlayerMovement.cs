@@ -15,6 +15,7 @@ namespace Players
 
         private float m_speed;
         private bool m_hasDestination;
+        private float m_angulareSpeed;
 
         private void OnValidate()
         {
@@ -25,7 +26,7 @@ namespace Players
         }
 
         private void Awake() =>
-            Initialize(m_speed);
+            Initialize(m_speed, m_angulareSpeed);
 
         private void Update()
         {
@@ -45,10 +46,12 @@ namespace Players
             }
         }
 
-        public void Initialize(float speed)
+        public void Initialize(float speed, float angulareSpeed)
         {
             m_speed = speed;
             m_agent.speed = speed;
+            m_agent.angularSpeed = angulareSpeed;
+            m_agent.updateRotation = false;
         }
 
         public void SetDestination(Vector3 navMeshPoint)
@@ -56,6 +59,19 @@ namespace Players
             m_agent.SetDestination(navMeshPoint);
             m_hasDestination = true;            
             DestinationChanged?.Invoke(navMeshPoint);
+        }
+        public void RotateTowards(Vector3 WorldPoint)
+        {
+            var direction = WorldPoint - transform.position;
+            direction.y = 0;
+
+            if (direction.sqrMagnitude < 0.0001f)
+            {
+                return;
+            }
+
+            var targetRotate = Quaternion.LookRotation(direction, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation)
         }
     }
 }

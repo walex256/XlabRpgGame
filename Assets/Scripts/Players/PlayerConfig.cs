@@ -3,7 +3,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerConfig", menuName = "Player Config")]
 public sealed class PlayerConfig : ScriptableObject
 {
-    [SerializeField][Range(0f,100f)] private float m_speed = 5f;
 
+    [SerializeField] private Texture2D m_cursor;
+    [SerializeField][Range(0f,100f)] private float m_speed = 5f;
+    [SerializeField][Min(0)] private float m_angularSpeed;
     public float speed => m_speed;
+
+    public float angularSpeed => m_angularSpeed;
+
+    public Texture2D Cursor => m_cursor;    
 }
