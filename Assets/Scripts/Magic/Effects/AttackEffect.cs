@@ -1,11 +1,16 @@
+using System;
 using UnityEngine;
 
+[Serializable]
 public class AttackEffect : IEffect
 {
-    [SerializeField][Min(0f)] private float m_damage;
+    [SerializeField][Min(0)] private float m_damage;
 
-    public void Apply(IEffectable efffectable)
+    public void Apply(IEffectable effectable)
     {
-
+        if (effectable is IHealth health)
+        {
+            health.TakeDamage(m_damage);
+        }
     }
 }

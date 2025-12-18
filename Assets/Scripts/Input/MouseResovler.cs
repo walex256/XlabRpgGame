@@ -34,4 +34,20 @@ public class MouseResolver : MonoBehaviour
         }
         return null;
     }
+    public Vector3? GetCursorWorldPosition()
+    {
+        var ray = m_camera.ScreenPointToRay(mousePosition);
+
+        if (Physics.Raycast(ray, out var hit))
+        {
+            return hit.point;
+        }
+        var plane = new Plane(Vector3.up, Vector3.zero);
+        if (plane.Raycast(ray, out var distance))
+        {
+            return ray.GetPoint(distance);
+        }
+        return null;
+    }
+
 }

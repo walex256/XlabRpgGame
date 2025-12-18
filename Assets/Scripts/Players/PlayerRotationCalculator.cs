@@ -1,35 +1,39 @@
 using UnityEngine;
-
-public sealed class PlayerRotationCalculator : MonoBehaviour
+namespace Players
 {
-   private readonly Camera m_camera;
-   private readonly Transform m_Playertransform;
-
-    public PlayerRotationCalculator(Camera camera, Transform m_playerTransform)
+    public sealed class PlayerRotatinCalculator
     {
-        m_camera = camera;
-        m_playerTransform = transform;
-    }
-    public Vector3 Calculate (Vector3 mousePosition)
-    {
-        var PlayerScreenPos = m_camera.WorldToScreenPoint(m_Playertransform.position);
-        var delta = (Vector2)(mousePosition - PlayerScreenPos);
+        private readonly Camera m_camera;
+        private readonly Transform m_playerTransaorm;
 
-        var cameraRight = m_camera.transform.right;
-        cameraRight.y = 0;
-        cameraRight.Normalize();
-
-        var cameraForward = m_camera.transform.forward;
-        cameraForward.y = 0;
-        cameraForward.Normalize();
-
-        var worldDirectoin = cameraRight * delta.x + cameraForward * delta.y;
-        worldDirectoin.y = 0;
-
-        if(worldDirectoin.sqrMagnitude < 0.00001f)
+        public PlayerRotatinCalculator(Camera camera, Transform playerTransaorm)
         {
-            return m_Playertransform.position + worldDirectoin;
+            m_camera = camera;
+            m_playerTransaorm = playerTransaorm;
         }
-        return Vector3.zero;
+
+        public Vector3 Calculate(Vector3 mousePosition)
+        {
+            var playersScreenposition = m_camera.WorldToScreenPoint(m_playerTransaorm.position);
+            var delta = (Vector2)mousePosition - (Vector2)playersScreenposition;
+
+            var cameraRight = m_camera.transform.right;
+            cameraRight.y = 0f;
+            cameraRight.Normalize();
+
+            var cameraForward = m_camera.transform.forward;
+            cameraForward.y = 0f;
+            cameraForward.Normalize();
+
+            var worldDirection = cameraRight * delta.x + cameraForward * delta.y;
+            worldDirection.y = 0f;
+
+            if (worldDirection.sqrMagnitude > 0.0001f)
+            {
+                return m_playerTransaorm.position + worldDirection;
+            }
+
+            return Vector3.zero;
+        }
     }
 }

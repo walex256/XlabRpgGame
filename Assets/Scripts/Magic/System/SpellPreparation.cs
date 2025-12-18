@@ -19,7 +19,7 @@ public class SpellPreparation
 
     public void AddElement(ElementType elementType)
     {
-        if (m_elements.Count >= m_magicConfig.maxElements)
+        if (m_elements.Count >= m_magicConfig.MaxElements)
         {
 
             Clear();
@@ -44,7 +44,7 @@ public class SpellPreparation
             return false;
         }
 
-        foreach (var spellData in m_magicConfig.SpellDatabase.Spells)
+        foreach (var spellData in m_magicConfig.SpellDataBase.Spells)
         {
 
             if (IsMatchingCombination(spellData.combination))
@@ -74,7 +74,8 @@ public class SpellPreparation
     }
     public void Clear()
     {
-
+        m_elements.Clear();
+        ElementsChanged?.Invoke(m_elements);
     }
 
 }
