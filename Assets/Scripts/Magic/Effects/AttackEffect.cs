@@ -4,7 +4,7 @@ public class AttackEffect : IEffect
 {
     [SerializeField][Min(0f)] private float m_damage;
 
-    public void Apply(IEfffectable efffectable)
+    public void Apply(IEffectable efffectable)
     {
 
     }
