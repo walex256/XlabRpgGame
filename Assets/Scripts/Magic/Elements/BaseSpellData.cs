@@ -2,27 +2,30 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class BaseSpellData : ScriptableObject
+[CreateAssetMenu(fileName = "BaseSpellData", menuName = "Scriptable Objects/BaseSpellData")]
+public abstract class BaseSpellData : ScriptableObject
 {
-    [SerializeField] private string m_spellName;
 
+    [SerializeField] private string m_spellName;
+    [SerializeField] private GameObject m_visualEffect;
     [SerializeField] private ElementType[] m_combination;
 
-    [SerializeField] private GameObject m_visualEfect;
+    [SerializeReferenceDropdown]
+    [SerializeReference] private IEffect[] m_effects;
 
-    [SerializeReferenceDropDown] private 
+    public string spellName => m_spellName;
 
-    public string SpellName => m_spellName;
-
-    public GameObject visualEfect => m_visualEfect;
+    public GameObject visualEffect => m_visualEffect;
 
     public IReadOnlyList<ElementType> combination => m_combination;
 
     private void OnValidate()
     {
-        if(m_combination.Length > 3)
+        if (m_combination?.Length > 3)
         {
-            m_combination = m_combination.Take(3).ToArray();   
+            m_combination = m_combination.Take(3).ToArray();
         }
     }
+
+
 }

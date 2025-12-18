@@ -1,63 +1,78 @@
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
-using Players;
 
-
-[RequireComponent(typeof(PlayerMovement))]
-[RequireComponent(typeof(NavMeshMouseResolver))]
-public class PlayerController : MonoBehaviour
+namespace Players
 {
-
-    [SerializeField] private PlayerConfig m_config;
-    [SerializeField] private PlayerMovement m_playerMovement;
-    [SerializeField] private NavMeshMouseResolver m_navMeshMouseResolver;
-
-
-    private void OnValidate()
+    [RequireComponent(typeof(PlayerMovement))]
+    [RequireComponent(typeof(NavMeshMouseResolver))]
+    public class PlayerController : MonoBehaviour
     {
-        if(!m_playerMovement)
+
+        [SerializeField] private PlayerConfig m_config;
+        [SerializeField] private PlayerMovement m_playerMovement;
+        [SerializeField] private NavMeshMouseResolver m_navMeshMouseResolver;
+
+        private PlayerRotationCalculator m_playerRotatinCalculator;
+
+
+        private void OnValidate()
         {
-            m_playerMovement = GetComponent<PlayerMovement>();
-        }
-
-        if(!m_playerMovement)
-        {
-            m_navMeshMouseResolver = GetComponent<NavMeshMouseResolver>();
-        }
-    } 
-
-
-
-    private void Start()
-    {
-        m_playerMovement.Initialize(m_config.speed);
-        m_navMeshMouseResolver.Initialize(Camera.main);
-    }
-
-
-
-    private void Update()
-    {
-        if(Mouse.current.rightButton.wasPressedThisFrame)
-        {
-            Vector3 mousePosition = Mouse.current.position.ReadValue();
-            Vector3? navPoint = m_navMeshMouseResolver.GetNavMeshPoint(mousePosition);
-            
-            if(navPoint.HasValue)
+            if (!m_playerMovement)
             {
-                m_playerMovement.SetDestination(navPoint.Value);
+                m_playerMovement = GetComponent<PlayerMovement>();
+            }
+
+            if (!m_playerMovement)
+            {
+                m_navMeshMouseResolver = GetComponent<NavMeshMouseResolver>();
             }
         }
-    }
-    public void SetupCursor()
-    {
-        var texture = m_config.Cursor;
 
-        if (texture)
+
+
+        private void Start()
         {
-            var hotspot = new Vector2(texture.width /2f, texture.height / 2f);
-            Cursor.SetCursor(texture, hotspot, CursorMode.Auto);
+            var camera = Camera.main;
+
+            m_playerMovement.Initialize(m_config.speed, m_config.angularSpeed);
+            m_navMeshMouseResolver.Initialize(Camera.main);
+            m_playerRotatinCalculator = new PlayerRotationCalculator(camera, transform);
+
+            SetupCursor();
+        }
+
+
+
+        private void Update()
+        {
+            Vector3 mousePosition = Mouse.current.position.ReadValue();
+            var lookPoint = m_playerRotatinCalculator.Calculate(mousePosition);
+            m_playerMovement.RotateTowarrds(lookPoint);
+
+
+
+            if (Mouse.current.rightButton.wasPressedThisFrame)
+            {
+
+                Vector3? navPoint = m_navMeshMouseResolver.GetNavMeshPoint(mousePosition);
+
+                if (navPoint.HasValue)
+                {
+                    m_playerMovement.SetDestination(navPoint.Value);
+                }
+            }
+        }
+
+        private void SetupCursor()
+        {
+            var texture = m_config.cursortexture;
+            if (texture)
+            {
+                var hotspot = new Vector2(texture.width / 2f, texture.height / 2f);
+                Cursor.SetCursor(texture, hotspot, CursorMode.Auto);
+
+            }
         }
     }
 }
