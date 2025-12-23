@@ -3,9 +3,11 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public event Action<Enemy> Died;
+    [SerializeField] private EnemyData m_enemyData;
     [SerializeField] private HealthComponent m_healthComponent;
     private EnemyData m_data;
-
+    public HealthComponent health => m_healthComponent;
     private void OnEnable()
     {
         m_healthComponent.ValueChanged += () =>
