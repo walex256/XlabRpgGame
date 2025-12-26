@@ -5,6 +5,7 @@ public class SpawnerEnemy : MonoBehaviour
     [SerializeField] private Transform[] m_spawmPoints;
     [SerializeField] private EnemyData[] m_data;
     [SerializeField] private Enemy[] m_enemies;
+    [SerializeField] private Transform m_playerTransform;
 
     public void Spawn()
     {

@@ -2,6 +2,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyData")]
 public class EnemyData : ScriptableObject
 {
+    [SerializeField] private BaseSpellData m_spell;
     [SerializeField][Min(0)] private float m_health;
     [SerializeField][Range (0f,100f)] private float m_speed;
     [SerializeField][Min(0)] private float m_ataackTime;
@@ -13,6 +14,7 @@ public class EnemyData : ScriptableObject
     public float ataackTime => m_ataackTime;
     public float attackRange => m_attackRange;
 
+    public BaseSpellData spellData => m_spell;
 }
 public enum AttackEnemyType
 {

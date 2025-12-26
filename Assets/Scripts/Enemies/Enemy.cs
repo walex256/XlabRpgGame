@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void Initialize(EnemyData data)
+   public void Initialize(EnemyData data, Transform playerTransform)
    {
         m_data = data;
         m_healthComponent.Initialize(data.health);
