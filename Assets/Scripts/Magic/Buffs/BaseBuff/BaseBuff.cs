@@ -11,7 +11,6 @@ public class BaseBuff : IBuff
     {
         
     }
-
     public void Initialize(BuffContainer container)
     {
         this.container = container;
