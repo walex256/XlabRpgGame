@@ -9,6 +9,7 @@ public class EnemyData : ScriptableObject
     [SerializeField] private AttackEnemyType m_attackEnemyType;
     [SerializeField][Min(0)] private float m_attackRange;
 
+
     public float health => m_health;
     public float speed => m_speed;
     public float ataackTime => m_ataackTime;
@@ -20,4 +21,11 @@ public enum AttackEnemyType
 {
     Range,
     Melee
+}
+[SerializeField]
+public struct SpellEnemyData
+{
+    [SerializeField] public int count;
+    [SerializeField] public BaseSpellData spell;
+
 }
