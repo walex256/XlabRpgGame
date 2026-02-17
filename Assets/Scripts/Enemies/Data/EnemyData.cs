@@ -8,7 +8,7 @@ public class EnemyData : ScriptableObject
     [SerializeField][Min(0)] private float m_ataackTime;
     [SerializeField] private AttackEnemyType m_attackEnemyType;
     [SerializeField][Min(0)] private float m_attackRange;
-
+    [SerializeField] private BaseSpellData m_defaultSpell;
 
     public float health => m_health;
     public float speed => m_speed;
@@ -16,6 +16,8 @@ public class EnemyData : ScriptableObject
     public float attackRange => m_attackRange;
 
     public BaseSpellData spellData => m_spell;
+
+    public BaseSpellData defaultSpell => m_defaultSpell;
 }
 public enum AttackEnemyType
 {
