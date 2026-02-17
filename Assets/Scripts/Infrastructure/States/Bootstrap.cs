@@ -14,5 +14,4 @@ public class Bootstrap : MonoBehaviour
             new GamePlayState(stateMachine, m_enemySpawner));
 
         stateMachine.ChangedState
-    }
 }
