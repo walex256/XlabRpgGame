@@ -4,14 +4,23 @@ public interface IPlayerFactorySettings
 {
     public Vector3 position {  get; set; }  
 }
-public class PlayerFactory : IPlayerFactorySettings
+public interface IPlayerFactory
+{
+    public PlayerController Create();
+
+    public void Release();
+}
+public class PlayerFactory : IPlayerFactorySettings, IPlayerFactory
 {
     private PlayerController m_playerPrefab;
     private PlayerController m_playerInstance;
-    private readonly string m_path;       
-    Vector3 IPlayerFactorySettings.position { get; set; }
-    public PlayerFactory(string path) {  m_path = path; }
+    private readonly string m_path;
+    public Vector3 position { get; set; }
 
+    public PlayerFactory(string path)
+    {
+        m_path = path;
+    }
     public PlayerController Create()
     {
         if (m_playerInstance != null)
@@ -24,6 +33,7 @@ public class PlayerFactory : IPlayerFactorySettings
             m_playerPrefab = playerPrefab.GetComponent<PlayerController>();
         }
         m_playerInstance = Object.Instantiate(m_playerPrefab, ((IPlayerFactorySettings)this).position, Quaternion.identity);
+        m_playerInstance.Initialize(Camera.main, ServiceLocator.Resolve<MouseResolver>());
         return m_playerInstance;
     }
 

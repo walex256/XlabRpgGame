@@ -11,12 +11,17 @@ namespace Players
     {
 
         [SerializeField] private PlayerConfig m_config;
+        [SerializeField] private HealthComponent m_health;
         [SerializeField] private PlayerMovement m_playerMovement;
-        [SerializeField] private MouseResolver m_navMeshMouseResolver;
+
         [SerializeField] private MagicInputHelper m_magicInputHelper;
 
-        private PlayerRotatinCalculator m_playerRotatinCalculator;
+        private MouseResolver m_mouseResolver;
+        private PlayerRotatinCalculator m_playerRotationCalculator;
 
+        public PlayerConfig Config => m_config;
+
+        public HealthComponent Health => m_health;
 
         private void OnValidate()
         {
@@ -24,56 +29,48 @@ namespace Players
             {
                 m_playerMovement = GetComponent<PlayerMovement>();
             }
-
-            if (!m_playerMovement)
-            {
-                m_navMeshMouseResolver = GetComponent<MouseResolver>();
-            }
         }
 
-
-
-        private void Start()
+        public void Initialize(
+            Camera camera,
+            MouseResolver mouseResolver)
         {
-            var camera = Camera.main;
+            m_mouseResolver = mouseResolver;
 
-            m_playerMovement.Initialize(m_config.speed, m_config.angularSpeed);           
-            m_playerRotatinCalculator = new PlayerRotatinCalculator(camera, transform);
+            m_health.Initialize(m_config.Hp);
+            m_playerMovement.Initialize(m_config.speed, m_config.angularSpeed);
+            m_playerRotationCalculator = new PlayerRotatinCalculator(camera, transform);
 
             SetupCursor();
         }
 
-
-
         private void Update()
         {
             Vector3 mousePosition = Mouse.current.position.ReadValue();
-            var lookPoint = m_playerRotatinCalculator.Calculate(mousePosition);
-            m_playerMovement.RotateTowarrds(lookPoint);
-
-
+            var lookPoint = m_playerRotationCalculator.Calculate(mousePosition);
+            m_playerMovement.RotateTowards(lookPoint);
 
             if (Mouse.current.rightButton.wasPressedThisFrame)
             {
-
-                Vector3? navPoint = m_navMeshMouseResolver.GetNavMeshPoint();
+                Vector3? navPoint = m_mouseResolver.GetNavMeshPoint();
 
                 if (navPoint.HasValue)
                 {
                     m_playerMovement.SetDestination(navPoint.Value);
                 }
             }
+
             m_magicInputHelper.Update();
         }
 
         private void SetupCursor()
         {
-            var texture = m_config.cursortexture;
+            var texture = m_config.cursorTexture;
+
             if (texture)
             {
                 var hotspot = new Vector2(texture.width / 2f, texture.height / 2f);
                 Cursor.SetCursor(texture, hotspot, CursorMode.Auto);
-
             }
         }
     }

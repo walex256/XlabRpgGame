@@ -1,16 +1,24 @@
-using System.Collections.Generic;
-using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 public class StateMachine 
 {
     private IState m_state;
-    private Dictionary<Type, IState> m_state = new();
-    public void Initialize(IState[] state)
+    private Dictionary<Type, IState> m_states = new();
+    public void Initialize(params IState[] states)
     {
+        if (m_states.Count > 0) return;
 
+        foreach (var state in states)
+        {
+            m_states.Add(state.GetType(), state);
+        }
     }
-   public void ChangedState<T>()
+    public void Update()
+    {
+        m_state?.Update();
+    }
+    public void ChangedState<T>()
         where T : IState
     {
         m_state?.Exit();
@@ -22,24 +30,7 @@ public class StateMachine
 
 public interface IState
 {
+    public void Update();
     public void Enter();
     public void Exit();
-}
-public class MainMenuState : IState
-{
-    private StateMachine m_stateMachine;
-
-    public MainMenuState (StateMachine stateMachine)
-    {
-        m_stateMachine = stateMachine;
-    }
-    public void Enter()
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Exit()
-    {
-        throw new NotImplementedException();
-    }
 }

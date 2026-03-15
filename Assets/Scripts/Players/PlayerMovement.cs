@@ -66,7 +66,7 @@ namespace Players
             DestinationChanged?.Invoke(navMeshPoint);
         }
 
-        public void RotateTowarrds(Vector3 worldPoint)
+        public void RotateTowards(Vector3 worldPoint)
         {
             var direction = worldPoint - transform.position;
             direction.y = 0;
