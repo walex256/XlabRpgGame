@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
-public sealed class AttackEnemySystem : MonoBehaviour
+public sealed class AttackEnemy : MonoBehaviour
 {
     private Transform m_target;
     private SpellCaster m_spellCaster;
@@ -79,4 +80,4 @@ public sealed class AttackEnemySystem : MonoBehaviour
         return true;
     }
 }
-}
+

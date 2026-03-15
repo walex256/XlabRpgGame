@@ -1631,6 +1631,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MagicSystem
   m_config: {fileID: 11400000, guid: 7017e24998e40d145933a2c9bae95c32, type: 2}
   m_mouseResolver: {fileID: 1752068944}
+--- !u!114 &2000321434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2000321421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c8c37b9636fbb149888d294a72b3d9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthComponent
 --- !u!1 &2109507934
 GameObject:
   m_ObjectHideFlags: 0
@@ -2920,6 +2932,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3775434527956970495, guid: 2fb6d90fc41f02944ae4d9b4c9acea98, type: 3}
+      propertyPath: m_health
+      value: 
+      objectReference: {fileID: 2000321434}
+    - target: {fileID: 3775434527956970495, guid: 2fb6d90fc41f02944ae4d9b4c9acea98, type: 3}
       propertyPath: m_navMeshMouseResolver
       value: 
       objectReference: {fileID: 1752068944}
@@ -2950,6 +2966,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 376334850496778433, guid: 2fb6d90fc41f02944ae4d9b4c9acea98, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2000321428}
+    - targetCorrespondingSourceObject: {fileID: 376334850496778433, guid: 2fb6d90fc41f02944ae4d9b4c9acea98, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2000321434}
   m_SourcePrefab: {fileID: 100100000, guid: 2fb6d90fc41f02944ae4d9b4c9acea98, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

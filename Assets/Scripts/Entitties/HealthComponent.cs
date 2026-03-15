@@ -8,7 +8,7 @@ public class HealthComponent : MonoBehaviour, IHealth, IEffectable
     private float m_value;
 
     private bool m_initialized;
-    public float value
+    public float Value
     {
         get => m_value;
         private set
@@ -33,7 +33,7 @@ public class HealthComponent : MonoBehaviour, IHealth, IEffectable
             throw new InvalidOperationException("bo");
         }
         maxValue = value;
-        this.value = value;
+        this.Value = value;
         m_initialized = true;
     }   
 
@@ -43,7 +43,7 @@ public class HealthComponent : MonoBehaviour, IHealth, IEffectable
         {
             throw new ArgumentOutOfRangeException(nameof(heal),"Heal cannot negative");
         }
-        value += heal;
+        Value += heal;
     }
 
     public void TakeDamage(float damage)
@@ -52,6 +52,6 @@ public class HealthComponent : MonoBehaviour, IHealth, IEffectable
         {
             throw new ArgumentOutOfRangeException(nameof(damage), "Damage cannot negative");
         }
-        value -= damage;
+        Value -= damage;
     }
 }

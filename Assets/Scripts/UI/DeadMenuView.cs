@@ -21,4 +21,4 @@ public class DeadMenuView : MonoBehaviour
     private void OnClicked() =>
         GoToMenuClicked?.Invoke();
 }
-}
+

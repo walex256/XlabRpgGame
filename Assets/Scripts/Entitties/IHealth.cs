@@ -5,5 +5,5 @@ public interface IHealth
 
     public void TakeDamage(float damage);
 
-    public float value { get; }
+    public float Value { get; }
 }
