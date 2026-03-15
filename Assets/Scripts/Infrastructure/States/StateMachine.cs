@@ -30,7 +30,7 @@ public class StateMachine
 
 public interface IState
 {
-    public void Update();
+    public void Update() { }
     public void Enter();
     public void Exit();
 }

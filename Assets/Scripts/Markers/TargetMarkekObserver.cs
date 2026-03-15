@@ -8,17 +8,12 @@ namespace Markers
         [SerializeField] private TargetMarker m_targetMarker;
         [SerializeField] private PlayerMovement m_playerMovement;
 
-        private void OnEnable()
-        {            
+        public void Initialize(PlayerMovement playerMovement)
+        {
+            m_playerMovement = playerMovement;
             m_playerMovement.Stopped += OnPlayerStopped;
             m_playerMovement.DestinationChanged += OnDestinationChanged;
-        }
-
-        private void OnDisable()
-        {            
-            m_playerMovement.Stopped -= OnPlayerStopped;
-            m_playerMovement.DestinationChanged -= OnDestinationChanged;
-        }
+        }      
        
         private void OnPlayerStopped() =>
             m_targetMarker.Hide();
