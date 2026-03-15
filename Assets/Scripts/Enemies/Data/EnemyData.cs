@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyData")]
 public class EnemyData : ScriptableObject
@@ -9,15 +10,17 @@ public class EnemyData : ScriptableObject
     [SerializeField] private AttackEnemyType m_attackEnemyType;
     [SerializeField][Min(0)] private float m_attackRange;
     [SerializeField] private BaseSpellData m_defaultSpell;
-
+    [SerializeField] private AttackEnemyType m_enemyType;
+    [SerializeField] private SpellEnemyData[] m_spells;
     public float health => m_health;
     public float speed => m_speed;
     public float ataackTime => m_ataackTime;
     public float attackRange => m_attackRange;
-
-    public BaseSpellData spellData => m_spell;
+    public AttackEnemyType enemyType => m_enemyType;
 
     public BaseSpellData defaultSpell => m_defaultSpell;
+
+    public IReadOnlyList<SpellEnemyData> spells => m_spells;
 }
 public enum AttackEnemyType
 {
