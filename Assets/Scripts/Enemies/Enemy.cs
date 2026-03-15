@@ -1,13 +1,19 @@
 using System;
 using UnityEngine;
 
+
 public class Enemy : MonoBehaviour
 {
     public event Action<Enemy> Died;
-    [SerializeField] private EnemyData m_enemyData;
-    [SerializeField] private HealthComponent m_healthComponent;
+
+    [SerializeField] private AttackEnemy m_attack;
+    [SerializeField] private HealthComponent m_health;
+    [SerializeField] private EnemyMovement m_movement;
+
     private EnemyData m_data;
-    public HealthComponent health => m_healthComponent;
+    private Transform m_playerTransform;
+    private EnemyStateMachine m_stateMachine;
+
     private void OnEnable()
     {
         m_healthComponent.ValueChanged += () =>
