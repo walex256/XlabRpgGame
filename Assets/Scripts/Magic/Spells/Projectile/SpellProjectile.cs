@@ -33,15 +33,15 @@ namespace Magic.Spells.Projectiles
         private void FixedUpdate()
         {
             if (!m_initialized) return;
-            
+
             m_traveledDistance += m_speed * Time.fixedDeltaTime;
-            
+
             if (m_traveledDistance >= m_targetDistance)
             {
                 Destroy(gameObject);
             }
-            else            {
-                
+            else
+            {
                 SetLinearVelocity();
             }
         }
@@ -49,42 +49,32 @@ namespace Magic.Spells.Projectiles
         private void OnTriggerEnter(Collider other)
         {
             if (!m_initialized) return;
-           
-            if (other.TryGetComponent<IEffectable>(out var effectable))
-                ApplyEffects(effectable);
 
+            m_effects.ApplyEffects(other.GetComponents<IEffectable>());
             Destroy(gameObject);
         }
 
         public void Initialize(Vector3 targetPosition, float speed, IReadOnlyList<IEffect> effects)
-        {            
+        {
             m_targetPosition = targetPosition;
             m_targetPosition.y = transform.position.y;
-            
+
             m_speed = speed;
             m_effects = effects;
-            
+
             m_direction = (m_targetPosition - transform.position).normalized;
-           
+
             m_traveledDistance = 0f;
             m_targetDistance = Vector3.Distance(transform.position, m_targetPosition);
-           
+
             if (m_direction != Vector3.zero)
                 transform.rotation = Quaternion.LookRotation(m_direction);
+
             m_initialized = true;
-            
+
             SetLinearVelocity();
         }
 
-        private void ApplyEffects(IEffectable target)
-        {
-            if (m_effects is null) return;
-            
-            foreach (var effect in m_effects)
-            {
-                effect?.Apply(target);
-            }
-        }
         
         private void SetLinearVelocity() =>
             m_rigidbody.linearVelocity = m_direction * m_speed;
