@@ -4,18 +4,18 @@ namespace Players
     public sealed class PlayerRotatinCalculator
     {
         private readonly Camera m_camera;
-        private readonly Transform m_playerTransaorm;
+        private readonly Transform m_playerTransform;
 
-        public PlayerRotatinCalculator(Camera camera, Transform playerTransaorm)
+        public PlayerRotatinCalculator(Camera camera, Transform playerTransform)
         {
             m_camera = camera;
-            m_playerTransaorm = playerTransaorm;
+            m_playerTransform = playerTransform;
         }
 
         public Vector3 Calculate(Vector3 mousePosition)
         {
-            var playersScreenposition = m_camera.WorldToScreenPoint(m_playerTransaorm.position);
-            var delta = (Vector2)mousePosition - (Vector2)playersScreenposition;
+            var playerScreenPosition = m_camera.WorldToScreenPoint(m_playerTransform.position);
+            var delta = (Vector2)mousePosition - (Vector2)playerScreenPosition;
 
             var cameraRight = m_camera.transform.right;
             cameraRight.y = 0f;
@@ -30,7 +30,7 @@ namespace Players
 
             if (worldDirection.sqrMagnitude > 0.0001f)
             {
-                return m_playerTransaorm.position + worldDirection;
+                return m_playerTransform.position + worldDirection;
             }
 
             return Vector3.zero;
