@@ -1,16 +1,24 @@
+using System;
 using UnityEngine;
 
-public class EnemyStateMachine : MonoBehaviour
+public class EnemyStateMachine 
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public EnemyState currentState { get; private set; }
+    public event Action<EnemyState, EnemyState> StateChanged;
+    public EnemyStateMachine()
     {
-        
+        currentState = EnemyState.Idle;
     }
-
-    // Update is called once per frame
-    void Update()
+    public void ChangeState(EnemyState nextState)
     {
-        
+        if (currentState is EnemyState.Dead || currentState == nextState)
+        {
+            return;
+        }
+
+        var previousState = currentState;
+        currentState = nextState;
+
+        StateChanged?.Invoke(previousState, currentState);
     }
 }

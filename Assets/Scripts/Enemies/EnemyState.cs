@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class EnemyState : MonoBehaviour
-{
-    public enum EnemyStat
+
+
+    public enum EnemyState
     {
         Idle,
         Move,
         Attack,
         Dead
     }
-}
+
