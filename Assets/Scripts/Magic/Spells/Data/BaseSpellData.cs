@@ -14,7 +14,7 @@ public abstract class BaseSpellData : ScriptableObject
     [SerializeReference] private IEffect[] m_effects;
 
     public string spellName => m_spellName;
-
+    public IReadOnlyList<IEffect> effects => m_effects;
     public GameObject visualEffect => m_visualEffect;
 
     public IReadOnlyList<ElementType> combination => m_combination;
