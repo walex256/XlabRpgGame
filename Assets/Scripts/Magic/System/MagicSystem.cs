@@ -9,24 +9,21 @@ public class MagicSystem : MonoBehaviour
 {
     public event Action SpellCancelled;
     public event Action<MagicState> StateChanged;
-    public event Action<IReadOnlyList<ElementType>> ElementChanged
+
+    public event Action<IReadOnlyList<ElementType>> ElementsChanged
     {
         add => spellPreparation.ElementsChanged += value;
         remove => spellPreparation.ElementsChanged -= value;
-
     }
 
     [SerializeField] private MagicConfig m_config;
     [SerializeField] private MouseResolver m_mouseResolver;
 
-    private SpellPreparation m_spellPreparation;
     private MagicState m_state;
-    public SpellCaster m_caster;
+    private SpellCaster m_caster;
+    private Coroutine m_cooldownCoroutine;
+    private SpellPreparation m_spellPreparation;
 
-    private void Awake()
-    {
-        m_caster = new SpellCaster(transform);
-    }
     public MagicState state
     {
         get => m_state;
@@ -35,29 +32,28 @@ public class MagicSystem : MonoBehaviour
             if (m_state != value)
             {
                 m_state = value;
-                StateChanged?.Invoke(m_state); 
+                StateChanged?.Invoke(m_state);
             }
         }
     }
+
     private SpellPreparation spellPreparation =>
         m_spellPreparation ??= new SpellPreparation(m_config);
 
-    private void OnEnable()
+    private void Awake()
     {
-        spellPreparation.OverflowOccurred += CancelSpell; 
+        m_caster = new SpellCaster(transform);
     }
-    
 
-    private void OnDisable()
-    {
+    private void OnEnable() =>
+        spellPreparation.OverflowOccurred += CancelSpell;
+
+    private void OnDisable() =>
         spellPreparation.OverflowOccurred -= CancelSpell;
-    }
-
-    
 
     public void AddElement(ElementType element)
     {
-        if (state is MagicState.Coldown or MagicState.Casting)
+        if (state is MagicState.Cooldown or MagicState.Casting)
         {
             return;
         }
@@ -72,20 +68,20 @@ public class MagicSystem : MonoBehaviour
         {
             return;
         }
-        if(spellPreparation.TrygetSpell(out var spell))
+
+        if (spellPreparation.TrygetSpell(out var spell))
         {
             state = MagicState.Casting;
 
             m_caster.Cast(spell, m_mouseResolver.GetCursorWorldPosition().Value);
 
             spellPreparation.Clear();
-            state = MagicState.Idle  ;
+            state = MagicState.Idle;
         }
         else
         {
             CancelSpell();
         }
-       
     }
 
     private void CancelSpell()
@@ -94,10 +90,11 @@ public class MagicSystem : MonoBehaviour
         {
             spellPreparation.Clear();
             SpellCancelled?.Invoke();
+
             StartCooldown();
         }
     }
-    private Coroutine m_cooldownCoroutine;
+
     private void StartCooldown()
     {
         if (m_cooldownCoroutine is not null)
@@ -105,23 +102,24 @@ public class MagicSystem : MonoBehaviour
             StopCoroutine(m_cooldownCoroutine);
         }
 
-        m_cooldownCoroutine = StartCoroutine(ColdownRoutine());
+        m_cooldownCoroutine = StartCoroutine(CooldownRoutine());
     }
-    private IEnumerator ColdownRoutine()
+
+    private IEnumerator CooldownRoutine()
     {
-        state = MagicState.Coldown;
+        state = MagicState.Cooldown;
         yield return new WaitForSeconds(m_config.cancelCooldown);
         state = MagicState.Idle;
 
         m_cooldownCoroutine = null;
     }
-
-    public enum MagicState
-    {
-        Idle,
-        Preparation,
-        Coldown,
-        Casting,     
-
-    }
 }
+public enum MagicState
+{
+    Idle,
+    Preparation,
+    Cooldown,
+    Casting
+
+}
+

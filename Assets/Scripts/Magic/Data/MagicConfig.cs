@@ -9,7 +9,7 @@ public class MagicConfig : ScriptableObject
     [SerializeField] [Min(1)] private int m_maxelements = 3;
     [SerializeField][Min(0)] private float m_cancelCooldown;
 
-    public ElementsData ElementData => m_elementsData;
+    public ElementsData ElementsData => m_elementsData;
     public SpellDatabase SpellDataBase => m_spellsDataBase;
     public int maxElements => m_maxelements;
     public float cancelCooldown => m_cancelCooldown;

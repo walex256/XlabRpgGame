@@ -7,19 +7,25 @@ public class BuffElementView : MonoBehaviour
     [SerializeField] private Image m_timerImage;
     private IBuff m_buff;
 
-    private void Initialize(IBuff buff)
+    public void Initialize(IBuff buff)
     {
+        m_timerImage.fillAmount = 1;
         gameObject.SetActive(true);
         m_buff = buff;
         m_iconImage.sprite = buff.Icon;
     }
     public void Deinitialize()
     {
+        m_buff = null;
+        m_timerImage.fillAmount = 0;
         gameObject.SetActive(false);
     }
     private void Update()
     {
-        
+        if (m_buff is ITimedBuff timedBuff)
+        {
+            m_timerImage.fillAmount = timedBuff.timer / timedBuff.duration;
+        }
     }
 
 }
