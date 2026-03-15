@@ -11,6 +11,6 @@ public class MagicConfig : ScriptableObject
 
     public ElementsData ElementData => m_elementsData;
     public SpellDatabase SpellDataBase => m_spellsDataBase;
-    public int MaxElements => m_maxelements;
-    public float CancelCooldown => m_cancelCooldown;
+    public int maxElements => m_maxelements;
+    public float cancelCooldown => m_cancelCooldown;
 }

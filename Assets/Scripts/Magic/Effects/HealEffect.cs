@@ -8,7 +8,7 @@ public sealed class HealEffect : IEffect
     {
         if (effectable is IHealth health)
         {
-            health.Hael(m_heal);
+            health.Heal(m_heal);
         }
     }
 }
