@@ -8,39 +8,42 @@ public class HealthComponent : MonoBehaviour, IHealth, IEffectable
     private float m_value;
 
     private bool m_initialized;
-
+    public float value
+    {
+        get => m_value;
+        private set
+        {
+            if (Mathf.Approximately(m_value, value))
+            {
+                return;
+            }
+            m_value = value < 0 ? 0 : value;
+            ValueChanged?.Invoke();
+            if (m_value is 0)
+            {
+                Died?.Invoke();
+            }
+        }
+    }
+    public float maxValue { get; private set; }
     public void Initialize(float value)
     {
         if (m_initialized)
         {
             throw new InvalidOperationException("bo");
         }
-        m_value = value;
+        maxValue = value;
+        this.value = value;
         m_initialized = true;
-    }
-    public float Value
-    {
-        get => m_value;
+    }   
 
-        private set
-        {
-            if (Mathf.Approximately( m_value , value))
-            {
-                return;
-            }
-
-            m_value = value<0 ? 0 : value;
-            ValueChanged?.Invoke();
-        }
-    }
-
-    public void Hael(float heal)
+    public void Heal(float heal)
     {
         if (heal <0)
         {
             throw new ArgumentOutOfRangeException(nameof(heal),"Heal cannot negative");
         }
-        Value += heal;
+        value += heal;
     }
 
     public void TakeDamage(float damage)
@@ -49,6 +52,6 @@ public class HealthComponent : MonoBehaviour, IHealth, IEffectable
         {
             throw new ArgumentOutOfRangeException(nameof(damage), "Damage cannot negative");
         }
-        Value -= damage;
+        value -= damage;
     }
 }

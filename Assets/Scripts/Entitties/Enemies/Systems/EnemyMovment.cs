@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyMovment : MonoBehaviour
+public class EnemyMovment : MonoBehaviour, IAcceleration
 {
     [SerializeField] private NavMeshAgent m_agent;
 
