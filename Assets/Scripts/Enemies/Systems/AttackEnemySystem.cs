@@ -1,39 +1,82 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public sealed class AttackEnemySystem : MonoBehaviour
 {
     private Transform m_target;
-    private BaseSpellData m_spell;
     private SpellCaster m_spellCaster;
-
-    private float m_attackEnemy;
-    private bool isInit;
+    private IReadOnlyList<SpellEnemyData> m_spells;
+    private int m_count;
+    private int m_maxCount;
+    private BaseSpellData m_defaultSpell;
+    private float m_attackTime;
+    private bool m_isInitialized;
     private float m_cooldownTimer;
 
-    private void Initialize(BaseSpellData spell, float attacktime, Transform target)
+
+    public void Initialize(
+        BaseSpellData defaultSpell,
+        IReadOnlyList<SpellEnemyData> spells,
+        float attackTime,
+        Transform target)
     {
-        m_spell = spell;
-        m_attackEnemy = attacktime;
+        if (m_isInitialized)
+        {
+            return;
+        }
+
         m_target = target;
-        m_spellCaster = new SpellCaster(transform);
+        m_attackTime = attackTime;
+        m_defaultSpell = defaultSpell;
+        m_spells = spells.OrderBy(spell => spell.count).ToArray();
+        m_spellCaster = new SpellCaster(transform, true);
 
-        isInit = true;
-    }
-
-    private bool TryAttack()
-    {
-        if (isInit == false || m_target == false) return false;
-        if (m_cooldownTimer > 0) { return false; }
-            m_spellCaster.Cast(m_spell, m_target.position);
-        return true;
+        m_maxCount = spells.LastOrDefault().count;
+        m_isInitialized = true;
     }
 
     private void Update()
     {
-        if (!isInit)
+        if (!m_isInitialized)
         {
             return;
         }
-        if (m_cooldownTimer > 0) { m_cooldownTimer -= Time.deltaTime; }
+
+        if (m_cooldownTimer > 0)
+        {
+            m_cooldownTimer -= Time.deltaTime;
+        }
     }
+
+    public bool TryAttack()
+    {
+        if (!m_isInitialized || !m_target)
+        {
+            return false;
+        }
+
+        if (m_cooldownTimer > 0)
+        {
+            return false;
+        }
+
+        m_count++;
+        var spell = m_spells.FirstOrDefault(spell => spell.count == m_count);
+
+        if (spell.spell is null)
+        {
+            m_spellCaster.Cast(m_defaultSpell, m_target.position);
+        }
+        else
+        {
+            m_spellCaster.Cast(spell.spell, m_target.position);
+        }
+
+        if (m_count == m_maxCount)
+            m_count = 0;
+
+        m_cooldownTimer = m_attackTime;
+        return true;
+    }
+}
 }
