@@ -10,18 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b3e68d0f0c6b0ea408374be9dd97fe8e, type: 3}
-  m_Name: FireballEnemuSpell
+  m_Name: FireballSpell
   m_EditorClassIdentifier: Assembly-CSharp::Magic.Spells.Data.TargetSpellData
-  m_spellName: Fireball Enemy
-  m_visualEffect: {fileID: 6866449697082456767, guid: c371f82c389e55344a8626256c3ccd0c, type: 3}
-  m_combination: 
+  m_spellName: Fireball
+  m_visualEffect: {fileID: 6866449697082456767, guid: 2f2f8bba15196dc42a04290c77b3a61c, type: 3}
+  m_combination: 00000000
   m_effects:
-  - rid: 4298059494479102019
+  - rid: 4298059494479102022
+  - rid: 4298059494479102023
   m_speed: 10
   references:
     version: 2
     RefIds:
-    - rid: 4298059494479102019
+    - rid: 4298059494479102022
+      type: {class: BuffEffect, ns: , asm: Assembly-CSharp}
+      data:
+        m_buffs: []
+    - rid: 4298059494479102023
       type: {class: AttackEffect, ns: , asm: Assembly-CSharp}
       data:
         m_damage: 0

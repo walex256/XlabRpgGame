@@ -15,6 +15,9 @@ GameObject:
   - component: {fileID: 9005865907479428252}
   - component: {fileID: 1414718951524544879}
   - component: {fileID: 3775434527956970495}
+  - component: {fileID: -5733744295664685438}
+  - component: {fileID: 2471364994380044294}
+  - component: {fileID: -5413652432543991078}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -165,9 +168,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b689e75abf8abf4d8fc532ad0f46753, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  m_config: {fileID: 11400000, guid: 9711e7e92cd57204883cfb86ce847aa9, type: 2}
+  m_config: {fileID: 11400000, guid: 906cf91de9429fd4f988c28159b05361, type: 2}
+  m_health: {fileID: 2471364994380044294}
   m_playerMovement: {fileID: 1414718951524544879}
-  m_navMeshMouseResolver: {fileID: 0}
+  m_magicInputHelper:
+    m_magicSystem: {fileID: 0}
+    m_element1Key: 31
+    m_element2Key: 37
+    m_element3Key: 19
+    m_element4Key: 32
+--- !u!114 &-5733744295664685438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376334850496778433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd848626d9c34344db138bf06e9db6be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MagicSystem
+  m_config: {fileID: 11400000, guid: 170752ab7da9ba94cae69c002ab82124, type: 2}
+  m_mouseResolver: {fileID: 0}
+--- !u!114 &2471364994380044294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376334850496778433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c8c37b9636fbb149888d294a72b3d9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthComponent
+--- !u!114 &-5413652432543991078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376334850496778433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e4103f44f76ca343b64cb372dacb136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuffContainer
 --- !u!1 &1857465530459263545
 GameObject:
   m_ObjectHideFlags: 0

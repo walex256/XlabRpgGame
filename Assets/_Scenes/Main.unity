@@ -278,14 +278,14 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 203844586}
   m_Enabled: 1
-  serializedVersion: 12
+  serializedVersion: 11
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
-  m_CookieSize2D: {x: 10, y: 10}
+  m_CookieSize: 10
   m_Shadows:
     m_Type: 2
     m_Resolution: -1
@@ -369,9 +369,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 815117185}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2a724b09b8a49e2a59a9762d81e6f96, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f615226f1a79c5438b0034f871bbf7a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UI.MainMenuView
+  m_EditorClassIdentifier: Assembly-CSharp::MaimMenuView
   m_playButton: {fileID: 1501158041}
   m_exitButton: {fileID: 1893626984}
 --- !u!1 &961739749
@@ -760,15 +760,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 1296132094}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 296807da558449258090c394eef79be7, type: 3}
+  m_Script: {fileID: 11500000, guid: 06d0805a85e3ab64cbb928e2ddcda86e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Infrastructure.Boostrap
-  m_loading: {fileID: 1673885356193544585}
+  m_EditorClassIdentifier: Assembly-CSharp::Bootstrap
+  m_loading: {fileID: 1673885356193544589}
 --- !u!224 &1316697565 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7948115995805604661, guid: b582cc82ac65b6244b837fc3ad7259e3, type: 3}
   m_PrefabInstance: {fileID: 5974549805929781439}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1434589164 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3524973927477885935, guid: a4afa8148d9f7a747b6c34a7b086b151, type: 3}
+  m_PrefabInstance: {fileID: 1673885356193544584}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!114 &1501158041 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5476680745872442515, guid: 07e8b8cfbb8d99e4aa5783299abb2b5e, type: 3}
@@ -911,7 +922,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8772679811230136632, guid: a4afa8148d9f7a747b6c34a7b086b151, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -921,18 +933,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1397888372112197056, guid: a4afa8148d9f7a747b6c34a7b086b151, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1673885356193544588}
+    - targetCorrespondingSourceObject: {fileID: 1397888372112197056, guid: a4afa8148d9f7a747b6c34a7b086b151, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1673885356193544589}
   m_SourcePrefab: {fileID: 100100000, guid: a4afa8148d9f7a747b6c34a7b086b151, type: 3}
---- !u!114 &1673885356193544585 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8772679811230136632, guid: a4afa8148d9f7a747b6c34a7b086b151, type: 3}
-  m_PrefabInstance: {fileID: 1673885356193544584}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1673885356193544586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41e73751557afb4469d57f7a6408035c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Infrastructure.Loading
 --- !u!1 &1673885356193544586 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1397888372112197056, guid: a4afa8148d9f7a747b6c34a7b086b151, type: 3}
@@ -984,6 +988,19 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
+--- !u!114 &1673885356193544589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673885356193544586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8005be9fca2eb0419322f9d3375e966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Loading
+  m_loading: {fileID: 1434589164}
 --- !u!1001 &2962334954194645175
 PrefabInstance:
   m_ObjectHideFlags: 0

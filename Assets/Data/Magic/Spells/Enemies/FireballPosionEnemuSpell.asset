@@ -9,34 +9,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 535535951af64f5cab20f9f4c2c1eb3d, type: 3}
+  m_Script: {fileID: 11500000, guid: b3e68d0f0c6b0ea408374be9dd97fe8e, type: 3}
   m_Name: FireballPosionEnemuSpell
   m_EditorClassIdentifier: Assembly-CSharp::Magic.Spells.Data.TargetSpellData
   m_spellName: Fireball Enemy
   m_visualEffect: {fileID: 5780291490103458273, guid: a7d93b4752680094d82ac8f8849fe7a0, type: 3}
   m_combination: 
   m_effects:
-  - rid: 5614381850829520960
-  - rid: 5555161792929333313
+  - rid: 4298059494479102020
+  - rid: 4298059494479102021
   m_speed: 10
   references:
     version: 2
     RefIds:
-    - rid: 5555161792929333313
-      type: {class: BuffEffect, ns: Magic.Effects, asm: Assembly-CSharp}
+    - rid: 4298059494479102020
+      type: {class: AttackEffect, ns: , asm: Assembly-CSharp}
       data:
-        m_buffs:
-        - rid: 5555161792929333314
-    - rid: 5555161792929333314
-      type: {class: PoisonDebuff, ns: Magic.Buffs.Impls, asm: Assembly-CSharp}
+        m_damage: 0
+    - rid: 4298059494479102021
+      type: {class: BuffEffect, ns: , asm: Assembly-CSharp}
       data:
-        <Id>k__BackingField: Posion
-        <Icon>k__BackingField: {fileID: 21300000, guid: efd259b63ed4a9f42adf43341b5a54d5, type: 3}
-        <Type>k__BackingField: 1
-        m_duration: 10
-        m_interval: 1
-        m_damagedPerSeconds: 2
-    - rid: 5614381850829520960
-      type: {class: AttackEffect, ns: Magic.Effects, asm: Assembly-CSharp}
-      data:
-        m_damage: 25
+        m_buffs: []

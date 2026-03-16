@@ -11,8 +11,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21a58c9591da52f45b956eef9600967f, type: 3}
   m_Name: MagicConfig
-  m_EditorClassIdentifier: Assembly-CSharp::MagicConfig
-  m_elementsData: {fileID: 11400000, guid: af16c2bcae298454a97332b02f997db2, type: 2}
-  m_spellsDataBase: {fileID: 11400000, guid: 4bb50c906ddbd10449544919affc0c46, type: 2}
+  m_EditorClassIdentifier: Assembly-CSharp::Magic.Data.MagicConfig
+  m_elementsData: {fileID: 11400000, guid: 5790da2a5bf39a14691fd0156b35f364, type: 2}
+  m_spellsDataBase: {fileID: 11400000, guid: 7c837b91f31ed1b44b46cea3fec16f91, type: 2}
   m_maxelements: 3
-  m_cancelCooldown: 1.5
+  m_cancelCooldown: 0

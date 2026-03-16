@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 790d5a93abb382d40b5c491a858059a7, type: 3}
-  m_Name: EnemyAoeSpell
+  m_Name: StonnerSpell
   m_EditorClassIdentifier: Assembly-CSharp::Magic.Spells.Data.AoeSpellData
-  m_spellName: Enemy Aoe Spell
-  m_visualEffect: {fileID: 0}
-  m_combination: 01000000
+  m_spellName: Stonner
+  m_visualEffect: {fileID: 777977292530958465, guid: 1ef893a94318ae54fbb83af0a7fe4ea5, type: 3}
+  m_combination: 0300000003000000
   m_effects:
-  - rid: 4298059494479102018
+  - rid: 4298059494479102025
   m_isTarget: 0
   m_radius: 5
   references:
     version: 2
     RefIds:
-    - rid: 4298059494479102018
+    - rid: 4298059494479102025
       type: {class: AttackEffect, ns: , asm: Assembly-CSharp}
       data:
         m_damage: 0

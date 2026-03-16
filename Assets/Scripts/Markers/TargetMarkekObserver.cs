@@ -6,7 +6,7 @@ namespace Markers
     public sealed class TargetMarkerObserver : MonoBehaviour
     {        
         [SerializeField] private TargetMarker m_targetMarker;
-        [SerializeField] private PlayerMovement m_playerMovement;
+        private PlayerMovement m_playerMovement;
 
         public void Initialize(PlayerMovement playerMovement)
         {

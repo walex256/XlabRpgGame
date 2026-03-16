@@ -1,21 +1,20 @@
-using Players;
+
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace Magic.Spells.Projectiles
-{
-    [RequireComponent(typeof(Rigidbody))]
+
+   [RequireComponent(typeof(Rigidbody))]
     public sealed class SpellProjectile : MonoBehaviour, ISpellProjectile
     {
+        [SerializeField] private Rigidbody m_rigidbody;
+
+        private float m_speed;
+        private bool m_initialized;
         private Vector3 m_direction;
         private Vector3 m_targetPosition;
-        private float m_speed;
-        private bool m_initialized;        
         private float m_targetDistance;
         private float m_traveledDistance;
         private IReadOnlyList<IEffect> m_effects;
-
-        [SerializeField] private Rigidbody m_rigidbody;
 
         private void OnValidate()
         {
@@ -26,10 +25,11 @@ namespace Magic.Spells.Projectiles
         }
 
         private void Awake()
-        {            
-            m_rigidbody.useGravity = false;            
+        {
+            m_rigidbody.useGravity = false;
             m_rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-        }        
+        }
+
         private void FixedUpdate()
         {
             if (!m_initialized) return;
@@ -75,8 +75,6 @@ namespace Magic.Spells.Projectiles
             SetLinearVelocity();
         }
 
-        
         private void SetLinearVelocity() =>
             m_rigidbody.linearVelocity = m_direction * m_speed;
     }
-}
